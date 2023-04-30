@@ -19,8 +19,7 @@ class Task(models.Model):
     task_name = models.CharField(max_length=200, null=False)
     task_description = models.CharField(max_length=200, null=False)
     task_date = models.DateField()
-    task_completed = models.BooleanField(null=True, default=False)
-    task_priority = models.CharField(max_length=20, null=True, choices=FLAGS, default='yellow')
+    date_reached = models.BooleanField(default=False, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

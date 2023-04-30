@@ -6,15 +6,24 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Task
 from .forms import TaskForm
 
+from datetime import datetime
+
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
         form = TaskForm()
-        tasks = Task.objects.filter(account=request.user.account).order_by('task_priority')
+        tasks = Task.objects.filter(account=request.user.account)
+        today = datetime.now().date() # .strftime('%Y-%m-%d')
+
+    for task in tasks:
+        if today > task.task_date:
+            task.date_reached = True
+
         if len(tasks) > 0:
             avail = True
         else:
             avail = False
+
 
         context = {'form': form, 'tasks': tasks, 'avail': avail}
         return render(request, 'tasktracker/task.html', context)

@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YOLO - Task Tracker</title>
     
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -32,12 +34,12 @@
                     <!-- Without this the offcanvas will display the first task all through -->
                     <a class="list-group-item list-group-item-action flex-column align-items-start" data-bs-toggle="offcanvas" href="#task-preview-{{ task.id}}" role="button" aria-controls="task-preview">
                         <div class="d-flex w-100 justify-content-between">
-                        <h5 class="text-primary mb-1" style="text-transform: uppercase;">{{ task.task_name }}</h5>
-                        {% if task.task_completed %}
-                            <small class="text-success">3 days ago</small>
-                        {% else %}
-                            <small class="text-danger">3 days ago</small>
-                        {% endif %}
+                            <h5 class="text-primary mb-1" style="text-transform: uppercase;">{{ task.task_name }}</h5>
+                            {% if task.date_reached %}
+                                <i class="fa-sharp fa-regular fa-bell text-danger"></i>
+                            {% else %}
+                                <i class="fa-sharp fa-regular fa-bell text-primary"></i>
+                            {% endif %}
                         </div>
                         <small class="text-secondary">{{ task.task_date }}</small>
                         <p class="mb-1">{{ task.task_description }}</p>
@@ -53,7 +55,11 @@
                             <div>
                                 <div style="display: flex; justify-content: space-between;">
                                     <small class="text-muted">{{ task.task_date }}</small>
-                                    <small class="text-muted text-success">3 days ago</small>
+                                    {% if task.date_reached %}
+                                        <i class="fa-sharp fa-regular fa-bell text-danger"></i>
+                                    {% else %}
+                                        <i class="fa-sharp fa-regular fa-bell text-primary"></i>
+                                    {% endif %}
                                 </div>
                                 <p>{{ task.task_description }}</p>
                             </div>
@@ -67,7 +73,7 @@
                     <h1 class="lead">No Tasks available...</h1>
                 </div>
             {% endif %}
-          </div>
+        </div>
     </div>
 
 
@@ -116,6 +122,7 @@
         document.querySelector('#id_task_description').className += 'form-control';
         document.querySelector('#id_task_date').className += 'form-control';
     </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
         $('#task-modal').on('show.bs.modal', function (event) {
