@@ -10,11 +10,6 @@ class Account(models.Model):
         return self.acc_name
 
 class Task(models.Model):
-    FLAGS = (
-        ('red', 'RED'),
-        ('yellow', 'YELLOW'),
-        ('green', 'GREEN')
-    )
     account = models.ForeignKey(Account, null=True, on_delete=models.CASCADE)
     task_name = models.CharField(max_length=200, null=False)
     task_description = models.CharField(max_length=200, null=False)

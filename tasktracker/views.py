@@ -15,9 +15,9 @@ def home(request):
         tasks = Task.objects.filter(account=request.user.account)
         today = datetime.now().date() # .strftime('%Y-%m-%d')
 
-    for task in tasks:
-        if today > task.task_date:
-            task.date_reached = True
+        for task in tasks:
+            if today > task.task_date:
+                task.date_reached = True
 
         if len(tasks) > 0:
             avail = True
